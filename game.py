@@ -157,7 +157,7 @@ class Display:
             self.events_label.config(text = "День: {}    {}".format(self.events.get_day(), self.student.get_activity()))
             self.statement_label.config(text = "Деньги: {}    Успеваемость: {}        Бодрость: {}    Сытость: {}    Досуг: {}    Гигиена: {}".format(*self.student.get_statement()) + '\n'*2)
         else:
-            self.events_label.config(text = str("день: "self.events.get_day()) + "    " + self.student.get_alive())
+            self.events_label.config(text = "День: " + str(self.events.get_day()) + "    " + self.student.get_alive())
 
     def study(self):
         if self.student.get_activity() == "":
@@ -188,10 +188,7 @@ class Display:
         self.create()
         self.root.bind('<Return>', self.start)
         self.root.mainloop()
-
-
+        
+        
 d = Display()
 d.play()
-
-
-
