@@ -61,36 +61,36 @@ class Student:
 
     def update(self):
         if self.activity != "Ботает":
-            if self.perfomance <= 1/20:
-                self.perfomance = 0
+            if self.perfomance <= 2 + 1/200:
+                self.perfomance = 2
                 self.alive = "Вас отчислили"
             else:
-                self.perfomance -= 1/20
+                self.perfomance -= 1/200
         if self.activity != "Спит":
-            if self.energy <= 4:
+            if self.energy <= 0.4:
                 self.energy = 0
                 self.alive = "Вы умерли от переутомления"
             else:
-                self.energy -= 4
+                self.energy -= 0.4
         if self.activity != "Ест":
-            if self.fullness <= 4:
+            if self.fullness <= 0.4:
                 self.fullness = 0
                 self.alive = "Вы умерли от голода"
             else:
-                self.fullness -= 4
+                self.fullness -= 0.4
         if self.activity != "Играет":
-            if self.recreation <= 2:
+            if self.recreation <= 0.2:
                 self.recreation = 0
                 self.alive = "Вы покончили жизнь самоубийством вследствии депрессии"
             else:
-                self.recreation -= 2
+                self.recreation -= 0.2
 
         if self.activity != "Принимает душ":
-            if self.hygiene <= 2:
+            if self.hygiene <= 0.2:
                 self.hygiene = 0
                 self.alive = "Вас выгнали из общаги из-за неприятного запаха"
             else:
-                self.hygiene -= 2
+                self.hygiene -= 0.2
 
     def get_alive(self):
         return self.alive
@@ -102,14 +102,17 @@ class Events:
         self.special_event = ""
         self.started = False
 
+    def salary(self):
+        return self.hours == int(self.hours) and self.hours % (30*24) == 0
+
     def update(self):
-        self.hours += 1
+        self.hours += 0.2
 
     def get_day(self):
-        return int(self.hours/24)
+        return int(self.hours/24) + 1
 
     def get_hours(self):
-        return self.hours
+        return int(self.hours)
 
 
 class Display:
@@ -145,13 +148,13 @@ class Display:
     def start(self, event):
         if not self.started:
             self.started = True
-            self.events_label.after(1000, self.update)
+            self.events_label.after(100, self.update)
 
     def update(self):
         if self.student.get_alive() == "":
-            if self.events.get_hours() % (30*24) == 0:
+            if self.events.salary():
                 self.student.get_money()
-            self.events_label.after(1000, self.update)
+            self.events_label.after(100, self.update)
             self.events.update()
             self.student.update()
             self.events_label.config(text = "День: {}    {}".format(self.events.get_day(), self.student.get_activity()))
@@ -171,7 +174,7 @@ class Display:
 
     def eat(self):
         if self.student.get_activity() == "":
-            self.eat_btn.after(1000, self.student.eat)
+            self.eat_btn.after(500, self.student.eat)
             self.student.set_activity("Ест")
 
     def play_games(self):
@@ -181,14 +184,14 @@ class Display:
 
     def shower(self):
         if self.student.get_activity() == "":
-            self.shower_btn.after(1000, self.student.shower)
+            self.shower_btn.after(500, self.student.shower)
             self.student.set_activity("Принимает душ")
 
     def play(self):
         self.create()
         self.root.bind('<Return>', self.start)
         self.root.mainloop()
-        
-        
+
+
 d = Display()
 d.play()
