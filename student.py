@@ -12,7 +12,7 @@ class Student:
     def eat(self):
         if self.money <= 120:
             self.money = 0
-            self.alive = "Вы на мели"
+            self.alive = "You have no money"
         else:
             self.money -= 120
             self.fullness = min(100, self.fullness + 40)
@@ -47,35 +47,35 @@ class Student:
         self.activity = action
 
     def update(self):
-        if self.activity != "Ботает":
+        if self.activity != "Studies":
             if self.performance <= 2 + 1/200:
                 self.performance = 2
-                self.alive = "Вас отчислили"
+                self.alive = "You're kicked out from the university"
             else:
                 self.performance -= 1/200
-        if self.activity != "Спит":
+        if self.activity != "Sleeps":
             if self.energy <= 0.4:
                 self.energy = 0
-                self.alive = "Вы умерли от переутомления"
+                self.alive = "You've died of fatigue"
             else:
                 self.energy -= 0.4
-        if self.activity != "Ест":
+        if self.activity != "Eats":
             if self.fullness <= 0.4:
                 self.fullness = 0
-                self.alive = "Вы умерли от голода"
+                self.alive = "You've died of hunger"
             else:
                 self.fullness -= 0.4
-        if self.activity != "Играет":
+        if self.activity != "Plays":
             if self.recreation <= 0.2:
                 self.recreation = 0
-                self.alive = "Вы покончили жизнь самоубийством вследствии депрессии"
+                self.alive = "You've killed yorself because of depression"
             else:
                 self.recreation -= 0.2
 
-        if self.activity != "Принимает душ":
+        if self.activity != "Takes a shower":
             if self.hygiene <= 0.2:
                 self.hygiene = 0
-                self.alive = "Вас выгнали из общаги из-за неприятного запаха"
+                self.alive = "You're kicked out from the dormitory because of nasty smell"
             else:
                 self.hygiene -= 0.2
 

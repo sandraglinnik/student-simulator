@@ -5,22 +5,22 @@ from events import Events
 class Display:
     def __init__(self):
         self.root = Tk()
-        self.events_label = Label(self.root, text="Нажмите Enter, чтобы начать")
-        self.statement_label = Label(self.root, text = "Деньги: 12000    Успеваемость: 5        Бодрость: 100    Сытость: 100    Досуг: 100    Гигиена: 100" + '\n'*2)
+        self.events_label = Label(self.root, text="Press Enter to start")
+        self.statement_label = Label(self.root, text = "Money: 12000    Perfomance: 5	Energy: 100    Fullness: 100    Recreation: 100    Hygiene: 100" + '\n'*2)
         self.student_pic = PhotoImage(file = "student1.png")
         self.student_label = Label(self.root, image = self.student_pic)
-        self.study_btn = Button(text = "Ботать", command = self.study)
-        self.sleep_btn = Button(text = "Спать", command = self.sleep)
-        self.eat_btn = Button(text = "Есть", command = self.eat)
-        self.play_games_btn = Button(text = "Играть", command = self.play_games)
-        self.shower_btn = Button(text = "Принять душ", command = self.shower)
+        self.study_btn = Button(text = "Study", command = self.study)
+        self.sleep_btn = Button(text = "Sleep", command = self.sleep)
+        self.eat_btn = Button(text = "Eat", command = self.eat)
+        self.play_games_btn = Button(text = "Play", command = self.play_games)
+        self.shower_btn = Button(text = "Take a shower", command = self.shower)
         self.empty_label = Label(text='\n')
         self.student = Student()
         self.events = Events()
         self.started = False
 
     def create(self):
-        self.root.title("DIHT student simulator")
+        self.root.title("Student simulator")
         self.root.geometry("800x800")
         self.events_label.pack()
         self.statement_label.pack()
@@ -44,35 +44,35 @@ class Display:
                 self.student.get_money()
             self.events.update()
             self.student.update()
-            self.events_label.config(text = "День: {}    {}".format(self.events.get_day(), self.student.get_activity()))
-            self.statement_label.config(text = "Деньги: {}    Успеваемость: {}        Бодрость: {}    Сытость: {}    Досуг: {}    Гигиена: {}".format(*self.student.get_statement()) + '\n'*2)
+            self.events_label.config(text = "Day: {}    {}".format(self.events.get_day(), self.student.get_activity()))
+            self.statement_label.config(text = "Money: {}    Perfomance: {}	Energy: {}    Fullness: {}    Recreation: {}    Hygiene: {}".format(*self.student.get_statement()) + '\n'*2)
         else:
-            self.events_label.config(text = "День: " + str(self.events.get_day()) + "    " + self.student.get_alive())
+            self.events_label.config(text = "Day: " + str(self.events.get_day()) + "    " + self.student.get_alive())
 
     def study(self):
         if self.student.get_activity() == "":
             self.study_btn.after(2000, self.student.study)
-            self.student.set_activity("Ботает")
+            self.student.set_activity("Studies")
 
     def sleep(self):
         if self.student.get_activity() == "":
             self.sleep_btn.after(4000, self.student.sleep)
-            self.student.set_activity("Спит")
+            self.student.set_activity("Sleeps")
 
     def eat(self):
         if self.student.get_activity() == "":
             self.eat_btn.after(1000, self.student.eat)
-            self.student.set_activity("Ест")
+            self.student.set_activity("Eats")
 
     def play_games(self):
         if self.student.get_activity() == "":
             self.play_games_btn.after(2000, self.student.play_games)
-            self.student.set_activity("Играет")
+            self.student.set_activity("Plays")
 
     def shower(self):
         if self.student.get_activity() == "":
             self.shower_btn.after(1000, self.student.shower)
-            self.student.set_activity("Принимает душ")
+            self.student.set_activity("Takes a shower")
 
     def play(self):
         self.create()
